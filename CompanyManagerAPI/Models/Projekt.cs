@@ -15,27 +15,26 @@ namespace CompanyManagerAPI.Models
     {
         public Projekt()
         {
-            Oddelenies = new HashSet<Oddelenie>();
+            Oddelenia = new HashSet<Oddelenie>();
         }
 
         [Key]
         [Column("id_projekt")]
+
         public int IdProjekt { get; set; }
         [Column("id_divizia")]
+
         public int IdDivizia { get; set; }
         [Column("id_ved_projekt")]
+
         public int IdVedProjekt { get; set; }
         [Column("nazov")]
+
         [StringLength(100)]
         public string Nazov { get; set; }
 
-        [ForeignKey(nameof(IdDivizia))]
-        [InverseProperty(nameof(Divizium.Projekts))]
-        public virtual Divizium IdDiviziaNavigation { get; set; }
-        [ForeignKey(nameof(IdVedProjekt))]
-        [InverseProperty(nameof(Zamestnanec.Projekts))]
-        public virtual Zamestnanec IdVedProjektNavigation { get; set; }
-        [InverseProperty(nameof(Oddelenie.IdProjektNavigation))]
-        public virtual ICollection<Oddelenie> Oddelenies { get; set; }
+        public virtual Divizium Divizium { get; set; }
+        public virtual Zamestnanec Veduci { get; set; }
+        public virtual ICollection<Oddelenie> Oddelenia { get; set; }
     }
 }

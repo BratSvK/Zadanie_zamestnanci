@@ -15,7 +15,7 @@ namespace CompanyManagerAPI.Models
     {
         public Oddelenie()
         {
-            Zamestnanecs = new HashSet<Zamestnanec>();
+            Zamestnanci = new HashSet<Zamestnanec>();
         }
 
         [Key]
@@ -29,13 +29,8 @@ namespace CompanyManagerAPI.Models
         [StringLength(100)]
         public string Nazov { get; set; }
 
-        [ForeignKey(nameof(IdProjekt))]
-        [InverseProperty(nameof(Projekt.Oddelenies))]
-        public virtual Projekt IdProjektNavigation { get; set; }
-        [ForeignKey(nameof(IdVedOddelenia))]
-        [InverseProperty(nameof(Zamestnanec.Oddelenies))]
-        public virtual Zamestnanec IdVedOddeleniaNavigation { get; set; }
-        [InverseProperty(nameof(Zamestnanec.IdOddelenieNavigation))]
-        public virtual ICollection<Zamestnanec> Zamestnanecs { get; set; }
+        public virtual Projekt Projekt { get; set; }
+        public virtual Zamestnanec VeduciOddelenie { get; set; }
+        public virtual ICollection<Zamestnanec> Zamestnanci { get; set; }
     }
 }

@@ -1,4 +1,5 @@
 
+using CompanyManagerAPI.Helpers;
 using CompanyManagerAPI.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -11,7 +12,11 @@ namespace CompanyManagerAPI.Extensions
 
         public static IServiceCollection ApplicationServices(this IServiceCollection service, IConfiguration config)
         {
-            
+            // adding automaper 
+            // go and find profiles create inside the class 
+            service.AddAutoMapper(typeof(AutoMapperProfiles).Assembly);
+
+
             service.AddDbContext<DataContext>(options => {
                 options.UseSqlServer(config.GetConnectionString("DefaultConnection"));
             });

@@ -10,11 +10,12 @@ namespace CompanyManagerAPI.Models
 {
     [Index(nameof(IdVedDivizie), Name = "IX_Relationship10")]
     [Index(nameof(IdFirma), Name = "IX_Relationship4")]
+    [Table("Divizia")]
     public partial class Divizium
     {
         public Divizium()
         {
-            Projekts = new HashSet<Projekt>();
+            Projekty = new HashSet<Projekt>();
         }
 
         [Key]
@@ -28,13 +29,11 @@ namespace CompanyManagerAPI.Models
         [StringLength(100)]
         public string Nazov { get; set; }
 
-        [ForeignKey(nameof(IdFirma))]
-        [InverseProperty(nameof(Firma.Divizia))]
-        public virtual Firma IdFirmaNavigation { get; set; }
-        [ForeignKey(nameof(IdVedDivizie))]
-        [InverseProperty(nameof(Zamestnanec.Divizia))]
-        public virtual Zamestnanec IdVedDivizieNavigation { get; set; }
-        [InverseProperty(nameof(Projekt.IdDiviziaNavigation))]
-        public virtual ICollection<Projekt> Projekts { get; set; }
+       
+        public virtual Firma Firma { get; set; }
+      
+        public virtual Zamestnanec Veduci { get; set; }
+    
+        public virtual ICollection<Projekt> Projekty { get; set; }
     }
 }

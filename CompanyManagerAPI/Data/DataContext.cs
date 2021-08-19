@@ -34,17 +34,15 @@ namespace CompanyManagerAPI.Models
 
                 entity.Property(e => e.Nazov).IsUnicode(false);
 
-                entity.HasOne(d => d.IdFirmaNavigation)
+                entity.HasOne(d => d.Firma)
                     .WithMany(p => p.Divizia)
                     .HasForeignKey(d => d.IdFirma)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .OnDelete(DeleteBehavior.Restrict)
                     .HasConstraintName("Relationship4");
 
-                entity.HasOne(d => d.IdVedDivizieNavigation)
-                    .WithMany(p => p.Divizia)
-                    .HasForeignKey(d => d.IdVedDivizie)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("Relationship10");
+                entity.HasOne(d => d.Veduci)
+                    .WithOne(b => b.DivVed)
+                    .HasForeignKey<Divizium>(d => d.IdVedDivizie);
             });
 
             modelBuilder.Entity<Firma>(entity =>
@@ -53,10 +51,10 @@ namespace CompanyManagerAPI.Models
 
                 entity.Property(e => e.Nazov).IsUnicode(false);
 
-                entity.HasOne(d => d.IdVeduciNavigation)
-                    .WithMany(p => p.Firmas)
-                    .HasForeignKey(d => d.IdVeduci)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
+                entity.HasOne(d => d.Veduci)
+                    .WithOne(p => p.FirmaVed)
+                    .HasForeignKey<Firma>(d => d.IdVeduci)
+                    .OnDelete(DeleteBehavior.Restrict)
                     .HasConstraintName("Relationship9");
             });
 
@@ -66,17 +64,20 @@ namespace CompanyManagerAPI.Models
 
                 entity.Property(e => e.Nazov).IsUnicode(false);
 
-                entity.HasOne(d => d.IdProjektNavigation)
-                    .WithMany(p => p.Oddelenies)
+                entity.HasOne(d => d.Projekt)
+                    .WithMany(p => p.Oddelenia)
                     .HasForeignKey(d => d.IdProjekt)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .OnDelete(DeleteBehavior.Restrict)
                     .HasConstraintName("Relationship6");
 
-                entity.HasOne(d => d.IdVedOddeleniaNavigation)
-                    .WithMany(p => p.Oddelenies)
-                    .HasForeignKey(d => d.IdVedOddelenia)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
+                entity.HasOne(d => d.VeduciOddelenie)
+                    .WithOne(p => p.OddelenieVed)
+                    .HasForeignKey<Oddelenie>(d => d.IdVedOddelenia)
+                    .OnDelete(DeleteBehavior.Restrict)
                     .HasConstraintName("Relationship12");
+
+
+                
             });
 
             modelBuilder.Entity<Projekt>(entity =>
@@ -85,16 +86,16 @@ namespace CompanyManagerAPI.Models
 
                 entity.Property(e => e.Nazov).IsUnicode(false);
 
-                entity.HasOne(d => d.IdDiviziaNavigation)
-                    .WithMany(p => p.Projekts)
+                entity.HasOne(d => d.Divizium)
+                    .WithMany(p => p.Projekty)
                     .HasForeignKey(d => d.IdDivizia)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .OnDelete(DeleteBehavior.Restrict)
                     .HasConstraintName("Relationship5");
 
-                entity.HasOne(d => d.IdVedProjektNavigation)
-                    .WithMany(p => p.Projekts)
-                    .HasForeignKey(d => d.IdVedProjekt)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
+                entity.HasOne(d => d.Veduci)
+                    .WithOne(p => p.ProjVed)
+                    .HasForeignKey<Projekt>(d => d.IdVedProjekt)
+                    .OnDelete(DeleteBehavior.Restrict)
                     .HasConstraintName("Relationship11");
             });
 
@@ -112,9 +113,10 @@ namespace CompanyManagerAPI.Models
 
                 entity.Property(e => e.Titul).IsUnicode(false);
 
-                entity.HasOne(d => d.IdOddelenieNavigation)
-                    .WithMany(p => p.Zamestnanecs)
-                    .HasForeignKey(d => d.IdOddelenie)
+                entity.HasOne(d => d.Oddelenie)
+                    .WithMany(p => p.Zamestnanci)
+                    .HasForeignKey(d => d.OddelenieId)
+                    .OnDelete(DeleteBehavior.Restrict)
                     .HasConstraintName("Relationship13");
             });
 
