@@ -18,6 +18,7 @@ namespace CompanyManagerAPI.Extensions
             // go and find profiles create inside the class 
             service.AddAutoMapper(typeof(AutoMapperProfiles).Assembly);
             service.AddScoped<IEmployeeRepository, EmploeyeeRepository>();
+            service.AddScoped<IFirmaRepository, FirmaRepository>();
 
             service.AddDbContext<DataContext>(options => {
                 options.UseSqlServer(config.GetConnectionString("DefaultConnection"));

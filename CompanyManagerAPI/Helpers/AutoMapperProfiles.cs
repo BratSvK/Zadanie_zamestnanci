@@ -12,11 +12,26 @@ namespace CompanyManagerAPI.Helpers
         public AutoMapperProfiles()
         {
             // from -> to 
+            #region  Zamestnanec
             CreateMap<Zamestnanec, EmployeeDTO>();
             CreateMap<CreateEmploeyee, EmployeeDTO>();
             CreateMap<EmployeeDTO, Zamestnanec>();
             CreateMap<UpdateEmploeyeeDto, EmployeeDTO>().ForAllMembers(opt => opt.Condition((src, dest, sourceMember) => sourceMember != null));
             CreateMap<CreateEmploeyee, Zamestnanec>().BeforeMap((s,d) => s.Email.ToLowerInvariant());
+            #endregion
+
+            #region Firma
+            CreateMap<Firma,FirmaDTO>();
+            CreateMap<FirmaDTO,Firma>();
+
+            CreateMap<CreateFirma,FirmaDTO>();
+            CreateMap<CreateFirma,Firma>();
+
+            CreateMap<UpdateFirmaDTO,FirmaDTO>().ForAllMembers(opt => opt.Condition((src, dest, sourceMember) => sourceMember != null));
+
+
+
+            #endregion
             
         }
     }

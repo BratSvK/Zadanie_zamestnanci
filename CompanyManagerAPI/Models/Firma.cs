@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace CompanyManagerAPI.Models
 {
+    [Table("Firma")]
     [Index(nameof(IdVeduci), Name = "IX_Relationship9")]
     public partial class Firma
     {
@@ -18,7 +19,6 @@ namespace CompanyManagerAPI.Models
 
         [Key]
         [Column("id_firma")]
-
         public int IdFirma { get; set; }
         [Column("id_veduci")]
 
