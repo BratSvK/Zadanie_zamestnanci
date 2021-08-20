@@ -18,9 +18,11 @@ namespace CompanyManagerAPI.DTOs
         public string Priezvisko { get; set; }
         [Required]
         [StringLength(15)]
+        [Phone]
         public string Mobil { get; set; }
         [Required]
         [StringLength(320)]
+        [EmailAddress]
         public string Email { get; set; }
     }
 }

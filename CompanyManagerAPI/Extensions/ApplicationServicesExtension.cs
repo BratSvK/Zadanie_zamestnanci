@@ -1,5 +1,7 @@
 
+using CompanyManagerAPI.Data;
 using CompanyManagerAPI.Helpers;
+using CompanyManagerAPI.Interfaces;
 using CompanyManagerAPI.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -15,7 +17,7 @@ namespace CompanyManagerAPI.Extensions
             // adding automaper 
             // go and find profiles create inside the class 
             service.AddAutoMapper(typeof(AutoMapperProfiles).Assembly);
-
+            service.AddScoped<IEmployeeRepository, EmploeyeeRepository>();
 
             service.AddDbContext<DataContext>(options => {
                 options.UseSqlServer(config.GetConnectionString("DefaultConnection"));

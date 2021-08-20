@@ -13,6 +13,11 @@ namespace CompanyManagerAPI.Helpers
         {
             // from -> to 
             CreateMap<Zamestnanec, EmployeeDTO>();
+            CreateMap<CreateEmploeyee, EmployeeDTO>();
+            CreateMap<EmployeeDTO, Zamestnanec>();
+            CreateMap<UpdateEmploeyeeDto, EmployeeDTO>().ForAllMembers(opt => opt.Condition((src, dest, sourceMember) => sourceMember != null));
+            CreateMap<CreateEmploeyee, Zamestnanec>().BeforeMap((s,d) => s.Email.ToLowerInvariant());
+            
         }
     }
 }
