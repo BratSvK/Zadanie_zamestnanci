@@ -17,10 +17,13 @@ namespace CompanyManagerAPI.Extensions
             // adding automaper 
             // go and find profiles create inside the class 
             service.AddAutoMapper(typeof(AutoMapperProfiles).Assembly);
+            // all instances
             service.AddScoped<IEmployeeRepository, EmploeyeeRepository>();
             service.AddScoped<IFirmaRepository, FirmaRepository>();
             service.AddScoped<IDiviziaRepository, DiviziaRepository>();
             service.AddScoped<IProjektRepository, ProjektRepository>();
+            service.AddScoped<IOddelenieRepository, OddelenieRepository>();
+
 
 
 

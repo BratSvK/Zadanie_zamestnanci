@@ -53,9 +53,14 @@ namespace CompanyManagerAPI.Helpers
             #region Projekt
 
             CreateMap<Projekt,ProjektDTO>();
+            CreateMap<ProjektDTO,Projekt>();
+
             CreateMap<CreateProjekt,Projekt>();
 
             CreateMap<CreateProjekt,ProjektDTO>();
+
+            CreateMap<UpdateProjekt,ProjektDTO>();
+
 
 
            
@@ -67,6 +72,19 @@ namespace CompanyManagerAPI.Helpers
             
             #endregion
 
+
+            #region Oddelenie
+
+            CreateMap<Oddelenie, OddelenieDTO>();
+            CreateMap<OddelenieDTO, Oddelenie>();
+
+            CreateMap<CreateOddelenie,Oddelenie>();
+            CreateMap<CreateOddelenie, OddelenieDTO>();
+
+            CreateMap<UpdateOddelenie,OddelenieDTO>().ForAllMembers(opt => opt.Condition((src,dest,sourceMember) => sourceMember != null ));
+            CreateMap<UpdateOddelenie,Oddelenie>();
+
+            #endregion
 
 
             

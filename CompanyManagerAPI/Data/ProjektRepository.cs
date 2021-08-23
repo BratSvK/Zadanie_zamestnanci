@@ -79,7 +79,7 @@ namespace CompanyManagerAPI.Data
         public void Update(ProjektDTO projekt)
         {
              // Ef update and add flag thats been modified 
-            var projektToUpdate = _mapper.Map<ProjektDTO>(projekt);
+            var projektToUpdate = _mapper.Map<Projekt>(projekt);
            
             _context.Entry(projektToUpdate).State = EntityState.Modified;
         }

@@ -13,9 +13,13 @@ namespace CompanyManagerAPI.Controllers
         private readonly IMapper _mapper;
         private readonly IDiviziaRepository _diviziaRepository;
         private readonly IProjektRepository _projektRepository;
-        public CompanyController(IFirmaRepository firmaRepository, IMapper mapper, IDiviziaRepository diviziaRepository, IProjektRepository projektRepository)
+        private readonly IOddelenieRepository _oddelenieRepository;
+
+        public CompanyController(IFirmaRepository firmaRepository, IMapper mapper, IDiviziaRepository diviziaRepository, IProjektRepository projektRepository,
+                                 IOddelenieRepository oddelenieRepository)
         {
             _mapper = mapper;
+            _oddelenieRepository = oddelenieRepository;
             _projektRepository = projektRepository;
             _diviziaRepository = diviziaRepository;
             _firmaRepository = firmaRepository;
@@ -155,8 +159,6 @@ namespace CompanyManagerAPI.Controllers
 
             var divizia = await _diviziaRepository.GetDiviziaById(diviziumId);
 
-            updateDiviziaDTO.IdVeduci = divizia.Value.IdVedDivizie;
-            updateDiviziaDTO.IdFirma = divizia.Value.IdFirma;
 
             // mapp all properties which we changed 
             _mapper.Map(updateDiviziaDTO, divizia.Value);
@@ -174,7 +176,7 @@ namespace CompanyManagerAPI.Controllers
 
         #endregion
 
-        //#region  Projekt
+        #region  Projekt
 
 
         [HttpGet("divizia/{idDivizia}/projekty")]
@@ -223,35 +225,32 @@ namespace CompanyManagerAPI.Controllers
 
             if (!await _projektRepository.RemoveProjekt(idProjekt)) return NotFound("Projekt not found in your company");
 
-            if (await _firmaRepository.SaveAllAsync()) return Ok("Divizium succesfully deleted");
+            if (await _firmaRepository.SaveAllAsync()) return Ok("Projekt succesfully deleted");
 
-            return BadRequest("Failed to remove a firma");
+            return BadRequest("Failed to remove a projekt");
 
         }
 
-        /*
+        
 
 
         // edit  
 
-        [HttpPut("firma/{firmaId}/divizium/{diviziumId}/update")]
-        public async Task<ActionResult> UpdateDivizium(int firmaId,int diviziumId, UpdateDiviziaDTO updateDiviziaDTO)
+        [HttpPut("divizium/{diviziumId}/projekt/{idProjekt}/update")]
+        public async Task<ActionResult> UpdateProjekt(int idProjekt,int diviziumId, UpdateProjekt updateProjekt)
         {
-
-            if (!await _firmaRepository.FirmaExists(firmaId)) return NotFound("Firma not found ");
 
             if (! await _diviziaRepository.DiviziaExists(diviziumId)) return NotFound("Divizia not found");
 
-            var divizia  = await _diviziaRepository.GetDiviziaById(diviziumId);
+            if (! await _projektRepository.ProjektExists(idProjekt)) return NotFound("Projekt not found");
 
-            updateDiviziaDTO.IdVeduci = divizia.Value.IdVedDivizie;
-            updateDiviziaDTO.IdFirma = divizia.Value.IdFirma;
+
+            var projekt  = await _projektRepository.GetProjektById(idProjekt);
 
             // mapp all properties which we changed 
-            _mapper.Map(updateDiviziaDTO, divizia.Value);
+            _mapper.Map(updateProjekt, projekt.Value);
 
-            _diviziaRepository.Update(divizia.Value);
-
+            _projektRepository.Update(projekt.Value);
 
 
             if (await _firmaRepository.SaveAllAsync()) return Ok("Succesfully updated");
@@ -262,8 +261,99 @@ namespace CompanyManagerAPI.Controllers
         }
 
         #endregion
-        */
 
+        #region  Oddelenie
+   
+
+        [HttpGet("projekt/{idProjekt}/oddelenia")]
+        public async Task<ActionResult<IEnumerable<OddelenieDTO>>> GetAllOddelenieByProjekt(int idProjekt)
+        {
+            if (!await _projektRepository.ProjektExists(idProjekt)) return NotFound("Projekt not found ");
+
+            return await _oddelenieRepository.GetAllOddelenieByProjekt(idProjekt);
+        }
+
+ 
+        // create
+
+
+        [HttpPost("projekt/{idProjekt}/oddelenie/create")]
+        public async Task<ActionResult<OddelenieDTO>> CreateOddelenie(int idProjekt, CreateOddelenie createOddelenie)
+        {
+
+            if (!await _projektRepository.ProjektExists(idProjekt)) return NotFound("The projekt not exists");
+
+            if (await _oddelenieRepository.OddelnieExists(createOddelenie.IdOddelenie)) return BadRequest("Odelenie already exists");
+
+            if (!await _oddelenieRepository.OddelenieShouldAddVeduci(createOddelenie.IdVedOddelenia)) return BadRequest("Cannot assing veduci to your oddelenie");
+
+            createOddelenie.IdProjekt = idProjekt;
+
+            var oddelenie = await _oddelenieRepository.CreateOddelenie(createOddelenie);
+
+
+            // save to db
+            if (await _firmaRepository.SaveAllAsync()) return Ok(oddelenie.Value);
+
+            return BadRequest("Failed to create a Oddelenie");
+        }
+
+        
+
+
+        // remove 
+
+        // delete emploeyee
+        [HttpDelete("projekt/{idProjekt}/oddelenie/{idOddelenie}/remove")]
+        public async Task<ActionResult> RemoveOddelenie(int idProjekt,int idOddelenie)
+        {
+
+            if (!await _projektRepository.ProjektExists(idProjekt)) return NotFound("The Projekt doesn't exits ");
+
+            if (!await _oddelenieRepository.RemoveOddenielie(idOddelenie)) return NotFound("Oddelenie not found in your company");
+
+            if (await _firmaRepository.SaveAllAsync()) return Ok("Projekt succesfully deleted");
+
+            return BadRequest("Failed to remove a projekt");
+
+        }
+
+      
+
+
+        // edit  
+
+        [HttpPut("projekt/{idProjekt}/oddelenie/{idOddelenie}/update")]
+        public async Task<ActionResult> UpdateOddelenie(int idProjekt,int idOddelenie, UpdateOddelenie updateOddelenie)
+        {
+
+
+            if (! await _projektRepository.ProjektExists(idProjekt)) return NotFound("Projekt not found");
+
+            if (! await _oddelenieRepository.OddelnieExists(idOddelenie)) return NotFound("Oddelenie not found");
+            
+
+
+            var oddelenie  = await _oddelenieRepository.GetOddelenieByID(idOddelenie);
+
+
+
+            // mapp all properties which we changed 
+            _mapper.Map(updateOddelenie, oddelenie.Value);
+
+            _oddelenieRepository.Update(oddelenie.Value);
+
+
+            if (await _firmaRepository.SaveAllAsync()) return Ok("Succesfully updated");
+
+            return BadRequest("Updating failed");
+
+
+        }
+
+        #endregion
+
+     
 
     }
 }
