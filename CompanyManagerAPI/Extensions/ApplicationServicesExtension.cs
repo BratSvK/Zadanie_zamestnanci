@@ -19,6 +19,10 @@ namespace CompanyManagerAPI.Extensions
             service.AddAutoMapper(typeof(AutoMapperProfiles).Assembly);
             service.AddScoped<IEmployeeRepository, EmploeyeeRepository>();
             service.AddScoped<IFirmaRepository, FirmaRepository>();
+            service.AddScoped<IDiviziaRepository, DiviziaRepository>();
+            service.AddScoped<IProjektRepository, ProjektRepository>();
+
+
 
             service.AddDbContext<DataContext>(options => {
                 options.UseSqlServer(config.GetConnectionString("DefaultConnection"));
