@@ -1,0 +1,425 @@
+{
+	"info": {
+		"_postman_id": "fb1f5a96-8d19-499a-ab70-d62812391420",
+		"name": "Zadanie-Company",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Emploeyees",
+			"item": [
+				{
+					"name": "GetAllEmployees",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": ""
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetEmploeyee",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://localhost:5001/api/employees/7",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "5001",
+							"path": [
+								"api",
+								"employees",
+								"7"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "CreateEmploeyee",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"idZamestnanec\":6 ,\r\n  \"idOddelenie\": 1,\r\n  \"titul\": \"Mgr\",\r\n  \"meno\": \"Martin\",\r\n  \"priezvisko\": \"Placka\",\r\n  \"mobil\": \"+421904567709\",\r\n  \"email\": \"string\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://localhost:5001/api/employees/create",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "5001",
+							"path": [
+								"api",
+								"employees",
+								"create"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "RemoveEmployee",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "https://localhost:5001/api/employees/remove-emploeyee/11",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "5001",
+							"path": [
+								"api",
+								"employees",
+								"remove-emploeyee",
+								"11"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "UpdateEmploeyeeInfo",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": ""
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "CompanyParts",
+			"item": [
+				{
+					"name": "Firma",
+					"item": [
+						{
+							"name": "GetFirmy",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://localhost:5001/api/company/firmy",
+									"protocol": "https",
+									"host": [
+										"localhost"
+									],
+									"port": "5001",
+									"path": [
+										"api",
+										"company",
+										"firmy"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "CreateFirma",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"idFirma\": 0,\r\n  \"idVeduci\": 0,\r\n  \"nazov\": \"string\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://localhost:5001/api/company/firma/create",
+									"protocol": "https",
+									"host": [
+										"localhost"
+									],
+									"port": "5001",
+									"path": [
+										"api",
+										"company",
+										"firma",
+										"create"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "RemoveFirma",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "https://localhost:5001/api/company/remove-firma/2",
+									"protocol": "https",
+									"host": [
+										"localhost"
+									],
+									"port": "5001",
+									"path": [
+										"api",
+										"company",
+										"remove-firma",
+										"2"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "EditFirma",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"url": {
+									"raw": ""
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Divizia",
+					"item": [
+						{
+							"name": "DivizieByFirma",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": ""
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "CreateDivizia",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"url": {
+									"raw": ""
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "UpdateDivizia",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"url": {
+									"raw": ""
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "removeDivizium",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": ""
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Projekt",
+					"item": [
+						{
+							"name": "GetAllProjekts",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": ""
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "CreateProjekt",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"url": {
+									"raw": "https://localhost:5001/api/company/firma/1/divizia/create",
+									"protocol": "https",
+									"host": [
+										"localhost"
+									],
+									"port": "5001",
+									"path": [
+										"api",
+										"company",
+										"firma",
+										"1",
+										"divizia",
+										"create"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "UpdateProjekt",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"url": {
+									"raw": ""
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "RemoveProjekt",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "https://localhost:5001/api/company/divizia/1/projekt/1/update",
+									"protocol": "https",
+									"host": [
+										"localhost"
+									],
+									"port": "5001",
+									"path": [
+										"api",
+										"company",
+										"divizia",
+										"1",
+										"projekt",
+										"1",
+										"update"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Oddelenie",
+					"item": [
+						{
+							"name": "GetAllOddelenieByProjekt",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://localhost:5001/api/company/projekt/1/oddelenia",
+									"protocol": "https",
+									"host": [
+										"localhost"
+									],
+									"port": "5001",
+									"path": [
+										"api",
+										"company",
+										"projekt",
+										"1",
+										"oddelenia"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "CreateOddelenie",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"url": {
+									"raw": ""
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "UpdateOddelenie",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"nazov\": \"opravene-Developeri\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://localhost:5001/api/company/projekt/1/oddelenie/2/update",
+									"protocol": "https",
+									"host": [
+										"localhost"
+									],
+									"port": "5001",
+									"path": [
+										"api",
+										"company",
+										"projekt",
+										"1",
+										"oddelenie",
+										"2",
+										"update"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "DeleteOddelenie",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": ""
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		}
+	]
+}
